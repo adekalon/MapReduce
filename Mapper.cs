@@ -31,7 +31,7 @@ public class Mapper
             }
 
             string outputFileName = Path.GetFileNameWithoutExtension(file) + "_map.tsv";
-            string outputFilePath = Path.Combine("output", outputFileName);
+            string outputFilePath = Path.Combine("maps", outputFileName);
             using StreamWriter writer = new StreamWriter(outputFilePath);
             foreach (KeyValuePair<string, int> kvp in wordCounts)
             {
