@@ -1,37 +1,42 @@
 ﻿namespace MapReduce;
-
 public class Mapper
 {
-    public void Map(string inputFilePath)
+    public void Map(string inputDirectory)
     {
-        Dictionary<string, int> wordCounts = new();
+        string[] files = Directory.GetFiles(inputDirectory);
 
-        using StreamReader reader = new(inputFilePath);
-        string? line;
-        while ((line = reader.ReadLine()) is not null)
+        foreach (string file in files)
         {
-            string[] words = line.Split('\t');
-            foreach (string word in words)
+            Dictionary<string, int> wordCounts = new();
+
+            using StreamReader reader = new StreamReader(file);
+            string? line;
+            while ((line = reader.ReadLine()) is not null)
             {
-                if (!string.IsNullOrEmpty(word))
+                string[] words = line.Split('\t');
+                foreach (string word in words)
                 {
-                    if (wordCounts.ContainsKey(word))
+                    if (!string.IsNullOrEmpty(word))
                     {
-                        wordCounts[word]++;
-                    }
-                    else
-                    {
-                        wordCounts[word] = 1;
+                        if (wordCounts.ContainsKey(word))
+                        {
+                            wordCounts[word]++;
+                        }
+                        else
+                        {
+                            wordCounts[word] = 1;
+                        }
                     }
                 }
             }
-        }
 
-        string outputFilePath = Path.ChangeExtension(inputFilePath, "_map.tsv");
-        using StreamWriter writer = new(outputFilePath);
-        foreach (KeyValuePair<string, int> kvp in wordCounts)
-        {
-            writer.WriteLine($"{kvp.Key}\t{kvp.Value}");
+            string outputFileName = Path.GetFileNameWithoutExtension(file) + "_map.tsv";
+            string outputFilePath = Path.Combine("output", outputFileName);
+            using StreamWriter writer = new StreamWriter(outputFilePath);
+            foreach (KeyValuePair<string, int> kvp in wordCounts)
+            {
+                writer.WriteLine($"{kvp.Key}\t{kvp.Value}");
+            }
         }
     }
 }
