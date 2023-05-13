@@ -3,6 +3,15 @@ public class Mapper
 {
     public void Map(string inputDirectory)
     {
+        // delete maps directory to make sure that only selected files will be mapped
+        // definetely for future versions)
+        if (Directory.Exists("maps"))
+            {
+                Directory.Delete("maps", true);
+            }
+
+        Directory.CreateDirectory("maps");
+
         string[] files = Directory.GetFiles(inputDirectory);
 
         foreach (string file in files)
@@ -13,7 +22,7 @@ public class Mapper
             string? line;
             while ((line = reader.ReadLine()) is not null)
             {
-                string[] words = line.Split('\t');
+                string[] words = line.ToLower().Split('\t');
                 foreach (string word in words)
                 {
                     if (!string.IsNullOrEmpty(word))

@@ -28,13 +28,18 @@ public class Reducer
                     }
                 }
             }
+        }
 
-            string outputFilePath = "output.tsv";
-            using StreamWriter writer = new StreamWriter(outputFilePath);
-            foreach (KeyValuePair<string, int> kvp in reducedWordCounts)
-            {
-                writer.WriteLine($"{kvp.Key}\t{kvp.Value}");
-            }
+        if (File.Exists("output.tsv"))
+        {
+            File.Delete("output.csv");
+        }
+
+        string outputFilePath = "output.tsv";
+        using StreamWriter writer = new StreamWriter(outputFilePath);
+        foreach (KeyValuePair<string, int> kvp in reducedWordCounts)
+        {
+            writer.WriteLine($"{kvp.Key}\t{kvp.Value}");
         }
     }
 }
