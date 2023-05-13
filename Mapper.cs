@@ -27,7 +27,7 @@ public class Mapper
             }
         }
 
-        string outputFilePath = Path.ChangeExtension(inputFilePath, "_map.txt");
+        string outputFilePath = Path.ChangeExtension(inputFilePath, "_map.tsv");
         using StreamWriter writer = new(outputFilePath);
         foreach (KeyValuePair<string, int> kvp in wordCounts)
         {
