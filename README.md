@@ -9,6 +9,6 @@ This is a .NET console application that implements a basic WordCount MapReduce a
 4. Run the following command to execute the program: `dotnet run`.
 
 ### Input/Output
-- Initially "texts" contains some test files for testing, but you can add (or replace them with) your texts
+- Initially "texts" folder contains some text files for testing, but you can add (or replace them with) your texts
 - Results of mapping will be stored in "maps" folder (separate map for each input file).
 - Results of reducing will be stored in "output" folder. This folder will contain 2 files: `output.tsv` (contains all kvps with no orderin), `frequency_output.tsv` (keys are sorted by frequency)
