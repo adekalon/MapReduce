@@ -1,6 +1,8 @@
 ﻿namespace MapReduce;
 public class Mapper
 {
+    private readonly char[] punctuationMarks = { ',', '.', '!', '?', '(', ')', ':', ';', '"' };
+
     public void Map(string inputDirectory)
     {
         // delete maps directory to make sure that only selected files will be mapped
@@ -22,7 +24,9 @@ public class Mapper
             string? line;
             while ((line = reader.ReadLine()) is not null)
             {
-                string[] words = line.ToLower().Split('\t');
+                string[] words = line.ToLower().Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
+                                 .Select(word => word.Trim(punctuationMarks))
+                                 .ToArray();
                 foreach (string word in words)
                 {
                     if (!string.IsNullOrEmpty(word))

@@ -30,16 +30,34 @@ public class Reducer
             }
         }
 
-        if (File.Exists("output.tsv"))
+        string outputDirectoryPath = "output";
+
+        if (Directory.Exists(outputDirectoryPath))
         {
-            File.Delete("output.csv");
+            Directory.Delete(outputDirectoryPath, true);
         }
 
-        string outputFilePath = "output.tsv";
-        using StreamWriter writer = new StreamWriter(outputFilePath);
-        foreach (KeyValuePair<string, int> kvp in reducedWordCounts)
+        Directory.CreateDirectory(outputDirectoryPath);
+        
+        string outputFilePath = Path.Combine(outputDirectoryPath, "output.tsv");
+        using (StreamWriter writer = new StreamWriter(outputFilePath))
         {
-            writer.WriteLine($"{kvp.Key}\t{kvp.Value}");
+            foreach (KeyValuePair<string, int> kvp in reducedWordCounts)
+            {
+                writer.WriteLine($"{kvp.Key}\t{kvp.Value}");
+            }
         }
+        
+        string frequencyOutputFilePath = Path.Combine(outputDirectoryPath, "frequency_output.tsv");
+        using (StreamWriter frequencyWriter = new StreamWriter(frequencyOutputFilePath))
+        {
+            List<KeyValuePair<string, int>> sortedKvps = reducedWordCounts.OrderByDescending(x => x.Value).ToList();
+        
+            foreach (KeyValuePair<string, int> kvp in sortedKvps)
+            {
+                frequencyWriter.WriteLine($"{kvp.Key}\t{kvp.Value}");
+            }
+        }
+
     }
 }
