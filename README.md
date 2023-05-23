@@ -1,6 +1,6 @@
 # WordCount MapReduce Console App
 
-This is a .NET console application that implements a basic WordCount MapReduce algorithm. The application takes a directory "texts" containing tab separated text files as input, performs the map and reduce operations, and outputs the word counts to the console.
+This is a .NET console application that implements a basic WordCount MapReduce algorithm. The application reads all ".txt" files from the "texts" folder, performs the mapping and reducing operations, and outputs the word counts to the "output" folder.
 
 ### Compilation and Execution
 1. Ensure you have the .NET SDK installed on your machine. You can download it from the official [.NET website](https://dotnet.microsoft.com/en-us/download).
